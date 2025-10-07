@@ -1,6 +1,8 @@
 import { Text, View } from "react-native";
+import Frame from "@/components/frame";
 
 export default function Index() {
+  
   return (
     <View
       style={{
@@ -10,6 +12,8 @@ export default function Index() {
       }}
     >
       <Text>Edit app/index.tsx to edit this screen.</Text>
+      <Frame></Frame>
+
     </View>
   );
 }
