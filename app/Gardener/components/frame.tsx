@@ -1,19 +1,22 @@
 import React from "react";
 import "react-native";
-import {Image, View} from "react-native"
+import {Alert, Image, TouchableOpacity, View} from "react-native"
 
 
+interface frameProp{
+    onpress : () => void
+}
 
-export default function Frame(){
+
+export default function Frame({ onpress} : frameProp){
 
     return(
 
         <View> 
-            Teste
-            <Image 
-                source={require("@/assets/images/icon.png")}
-            />
+            <TouchableOpacity onPress={onpress}>
+                <Image source={require("@/assets/images/favicon.png")}/> 
+            </TouchableOpacity>
+
         </View>
-        
     );
 }
