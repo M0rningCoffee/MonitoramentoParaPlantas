@@ -1,6 +1,6 @@
 <?php
 
-class ConectionDB{
+class Connection{
 
     private $host = 'localhost';
     private $dbname = 'MONITORAMENTO';
@@ -20,7 +20,7 @@ class ConectionDB{
 
             return $this->connection;
         } catch (PDOException $ex) {
-            echo("Não foi possível conectar ao Banco de Dados");
+            echo("Não foi possível conectar ao Ba]nco de Dados");
             echo($ex->getMessage());
 
             return null;
@@ -31,7 +31,7 @@ class ConectionDB{
 
 }
 
-$dbTeste = new ConectionDB();
+$dbTeste = new Connection();
 
 $dbTeste->connect();
 var_dump($dbTeste);
