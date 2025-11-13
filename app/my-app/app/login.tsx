@@ -12,16 +12,14 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
-// 🪴 Importando estilos globais e sistema de design
+// 🎨 Importa estilos globais
 import { colors, globalStyles, typography, spacing } from "../styles";
 
 export default function LoginScreen() {
-  // Estados locais para e-mail e senha
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const router = useRouter();
 
-  // Função de login — aqui você pode integrar com API ou Firebase
   const handleLogin = () => {
     if (!email || !senha) {
       Alert.alert("Atenção", "Preencha e-mail e senha para continuar.");
@@ -29,30 +27,28 @@ export default function LoginScreen() {
     }
 
     Alert.alert("Bem-vindo!", `Login realizado com sucesso: ${email}`);
-    router.replace("/(tabs)"); // Redireciona após login
+    router.replace("/(tabs)");
   };
 
   return (
     <LinearGradient
-      // 🔹 Usa as cores do sistema centralizado
       colors={[colors.backgroundLight, colors.backgroundMedium, colors.backgroundDark]}
       style={globalStyles.container}
     >
-      {/* Cabeçalho com logo e título */}
+      
+      {/* 🔹 Logo e título */}
       <View style={localStyles.logoContainer}>
         <Image
-          source={{
-            uri: "https://cdn-icons-png.flaticon.com/512/2906/2906840.png",
-          }}
-          style={localStyles.logo}
-        />
-        <Text style={typography.title}>PlantCare</Text>
+  source={require("../assets/images/maconha.png")}
+  style={localStyles.logo}
+/>
+        <Text style={typography.title}>Planabis</Text>
         <Text style={[typography.subtitle, { marginTop: spacing.xs }]}>
-          Cuidando das suas plantas com tecnologia 🌿
+          Suas plantas na palma da mão 🌿
         </Text>
       </View>
 
-      {/* Formulário de login */}
+      {/* 🔹 Formulário */}
       <View style={globalStyles.formContainer}>
         {/* Campo de E-mail */}
         <View style={globalStyles.inputContainer}>
@@ -81,9 +77,9 @@ export default function LoginScreen() {
           />
         </View>
 
-        {/* Botão principal */}
-        <TouchableOpacity style={globalStyles.button} onPress={handleLogin}>
-          <Text style={globalStyles.buttonText}>Entrar</Text>
+        {/* Botão de Entrar */}
+        <TouchableOpacity style={localStyles.loginButton} onPress={handleLogin}>
+          <Text style={localStyles.loginButtonText}>Entrar</Text>
         </TouchableOpacity>
 
         {/* Esqueceu a senha */}
@@ -91,35 +87,72 @@ export default function LoginScreen() {
           onPress={() => router.push("./esqueciSenha")}
           style={{ marginTop: spacing.sm }}
         >
-          <Text style={typography.linkCenter}>Esqueceu senha?</Text>
+          <Text style={typography.linkCenter}>Esqueceu sua senha?</Text>
         </TouchableOpacity>
+      </View>
 
-        {/* Link de cadastro */}
-        <View style={localStyles.footerContainer}>
-          <Text style={typography.body}>Não tem conta?</Text>
-          <TouchableOpacity onPress={() => router.push("./cadastro")}>
-            <Text style={typography.link}> Cadastre-se</Text>
-          </TouchableOpacity>
-        </View>
+      {/* 🔹 Rodapé fixo */}
+      <View style={localStyles.footerContainer}>
+        <Text style={typography.body}>Não tem conta?</Text>
+        <TouchableOpacity onPress={() => router.push("./cadastro")}>
+          <Text style={typography.link}> Cadastre-se</Text>
+        </TouchableOpacity>
       </View>
     </LinearGradient>
   );
 }
 
-/* 🎨 Estilos locais — apenas o que é exclusivo dessa tela */
+/* 🎨 Estilos locais aprimorados */
 const localStyles = StyleSheet.create({
   logoContainer: {
     alignItems: "center",
     marginBottom: spacing.lg,
+    marginTop: spacing.xl,
   },
   logo: {
-    width: 100,
-    height: 100,
+    width: 120,
+    height: 120,
     marginBottom: spacing.sm,
+  },
+  loginButton: {
+    backgroundColor: colors.primary,
+    borderRadius: 12,
+    paddingVertical: 14,
+    alignItems: "center",
+    marginTop: spacing.md,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  loginButtonText: {
+    color: colors.white,
+    fontWeight: "bold",
+    fontSize: 16,
   },
   footerContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: spacing.md,
+    marginBottom: spacing.lg,
+  },
+  registerButtonTop: {
+    position: "absolute",
+    top: spacing.lg,
+    left: spacing.lg,
+    backgroundColor: colors.white,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs,
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 3,
+    elevation: 3,
+  },
+  registerButtonText: {
+    color: colors.primaryDark,
+    fontWeight: "bold",
+    fontSize: 14,
   },
 });
