@@ -66,6 +66,16 @@ export default function DashboardScreen() {
             </Text>
           </View>
         </TouchableOpacity>
+
+
+        <TouchableOpacity
+                  onPress={() => router.push("login/login")}
+                  style={{ marginTop: spacing.sm }}
+                >
+                  <Text style={typography.linkCenter}>Voltar</Text>
+                </TouchableOpacity>
+
+
       </ScrollView>
     </LinearGradient>
   );

@@ -121,14 +121,6 @@ export default function LoginScreen() {
         >
           <Text style={typography.linkCenter}>Esqueceu sua senha?</Text>
         </TouchableOpacity>
-
-        {/* Botão para dashboard (teste) */}
-        <TouchableOpacity
-          onPress={() => router.push("dashboard/home")}
-          style={{ marginTop: spacing.sm }}
-        >
-          <Text style={localStyles.dashboardButton}>ACESSE AQUI DASHBOARD</Text>
-        </TouchableOpacity>
       </View>
 
       {/* Rodapé */}
@@ -175,16 +167,5 @@ const localStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     marginBottom: spacing.lg,
-  },
-  dashboardButton: {
-    textAlign: "center",
-    marginTop: 20,
-    backgroundColor: "#000000ff",
-    paddingVertical: 12,
-    paddingHorizontal: 25,
-    borderRadius: 10,
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 16,
   },
 });
