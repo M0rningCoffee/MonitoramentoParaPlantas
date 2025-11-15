@@ -3,8 +3,8 @@ import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { colors, globalStyles, typography, spacing } from "../styles";
-import { styles } from "../styles/esqueciSenha.styles";
+import { colors, globalStyles, typography, spacing } from "../../styles";
+import { styles } from "../../styles/esqueciSenha.styles";
 
 export default function EsqueciSenha() {
   const [email, setEmail] = useState("");

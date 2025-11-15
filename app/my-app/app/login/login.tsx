@@ -13,7 +13,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
 // 🎨 Importa estilos globais
-import { colors, globalStyles, typography, spacing } from "../styles";
+import { colors, globalStyles, typography, spacing } from "../../styles";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -27,21 +27,25 @@ export default function LoginScreen() {
     }
 
     Alert.alert("Bem-vindo!", `Login realizado com sucesso: ${email}`);
-    router.replace("/(tabs)");
+    // Se não houver home, só mostra o alerta
+    // Se quiser navegar para home, use: router.replace("dashboard/home");
   };
 
   return (
     <LinearGradient
-      colors={[colors.backgroundLight, colors.backgroundMedium, colors.backgroundDark]}
+      colors={[
+        colors.backgroundLight,
+        colors.backgroundMedium,
+        colors.backgroundDark,
+      ]}
       style={globalStyles.container}
     >
-      
       {/* 🔹 Logo e título */}
       <View style={localStyles.logoContainer}>
         <Image
-  source={require("../assets/images/maconha.png")}
-  style={localStyles.logo}
-/>
+          source={require("../../assets/images/maconha.png")}
+          style={localStyles.logo}
+        />
         <Text style={typography.title}>Planabis</Text>
         <Text style={[typography.subtitle, { marginTop: spacing.xs }]}>
           Suas plantas na palma da mão 🌿
@@ -55,7 +59,7 @@ export default function LoginScreen() {
           <Ionicons name="mail-outline" size={20} color={colors.primary} />
           <TextInput
             style={globalStyles.input}
-            placeholder="E-mail"
+            placeholder="E-mail ou Usuário"
             placeholderTextColor={colors.textPlaceholder}
             value={email}
             onChangeText={setEmail}
@@ -81,20 +85,30 @@ export default function LoginScreen() {
         <TouchableOpacity style={localStyles.loginButton} onPress={handleLogin}>
           <Text style={localStyles.loginButtonText}>Entrar</Text>
         </TouchableOpacity>
+        
 
         {/* Esqueceu a senha */}
         <TouchableOpacity
-          onPress={() => router.push("./esqueciSenha")}
+          onPress={() => router.push("login/esqueciSenha")}
           style={{ marginTop: spacing.sm }}
         >
           <Text style={typography.linkCenter}>Esqueceu sua senha?</Text>
         </TouchableOpacity>
+
+        {/* Acesse o dashboard */}
+                <TouchableOpacity
+          onPress={() => router.push("dashboard/home")}
+          style={{ marginTop: spacing.sm }}
+        >
+          <Text style={localStyles.dashboardButton}>ACESSE AQUI DASHBOARD</Text>
+        </TouchableOpacity>
+
       </View>
 
       {/* 🔹 Rodapé fixo */}
       <View style={localStyles.footerContainer}>
         <Text style={typography.body}>Não tem conta?</Text>
-        <TouchableOpacity onPress={() => router.push("./cadastro")}>
+        <TouchableOpacity onPress={() => router.push("login/cadastro")}>
           <Text style={typography.link}> Cadastre-se</Text>
         </TouchableOpacity>
       </View>
@@ -136,23 +150,23 @@ const localStyles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: spacing.lg,
   },
-  registerButtonTop: {
-    position: "absolute",
-    top: spacing.lg,
-    left: spacing.lg,
-    backgroundColor: colors.white,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.xs,
-    borderRadius: 20,
-    shadowColor: "#000",
+
+  // Estilos para o botão de acessar o dashboard diretamente
+  dashboardButton: {
+    textAlign: "center",
+    marginTop: 20,               // distância do topo
+    backgroundColor: "#000000ff",  // cor de fundo
+    paddingVertical: 12,         // altura do botão
+    paddingHorizontal: 25,       // largura interna
+    borderRadius: 10,            // cantos arredondados
+    alignItems: "center",        // centraliza o texto
+    shadowColor: "#000",         // sombra iOS
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 3,
-    elevation: 3,
-  },
-  registerButtonText: {
-    color: colors.primaryDark,
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,                // sombra Android
+    color: "#fff",               // cor do texto
     fontWeight: "bold",
-    fontSize: 14,
+    fontSize: 16,
   },
 });

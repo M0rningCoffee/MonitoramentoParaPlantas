@@ -1,21 +1,37 @@
 <?php
-class Connection {
+
+class Connection{
+
     private $host = 'localhost';
-    private $dbname = 'MONITORAMENTO'; // seu banco
-    private $username = 'admin';       // seu usuário
-    private $password = 'admin123';    // sua senha
+    private $dbname = 'MONITORAMENTO';
+    private $username = 'admin';
+    private $password = 'admin123';
     private $port = '3306';
     public $connection;
 
-    function connect() {
+    function connect()
+    {
+
         try {
             $dsn = "mysql:host={$this->host};port={$this->port};dbname={$this->dbname}";
+
             $this->connection = new PDO($dsn, $this->username, $this->password);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
             return $this->connection;
         } catch (PDOException $ex) {
-            echo json_encode(["error" => "Não foi possível conectar ao banco", "message" => $ex->getMessage()]);
+            echo("Não foi possível conectar ao Ba]nco de Dados");
+            echo($ex->getMessage());
+
             return null;
         }
+
+
     }
+
 }
+
+$dbTeste = new Connection();
+
+$dbTeste->connect();
+var_dump($dbTeste);

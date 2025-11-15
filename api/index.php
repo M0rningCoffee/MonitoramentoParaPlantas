@@ -1,17 +1,27 @@
 <?php
-switch ($_SERVER['REQUEST_METHOD']) {
-    case 'GET':
-        break;
-    case 'POST':
-        if ($_SERVER['REQUEST_URI'] == '/umidade') {
-            
-        }
-        break;
-    case 'PUT':
-        break;
-    case 'DELETE':
-        break;
-    default:
-        http_response_code(405);
-        break;
+require "controllers/controller.php";
+
+header("Content-Type: application/json");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+
+$request = $_SERVER['REQUEST_URI'];
+$method = $_SERVER['REQUEST_METHOD'];
+
+$data = json_decode(file_get_contents("php://input"), true);
+
+if ($method == 'POST' && strpos($request, '/login') !== false) {
+    $email = $data['email'] ?? '';
+    $senha = $data['senha'] ?? '';
+    $result = loginUser($email, $senha);
+    echo json_encode($result);
+} elseif ($method == 'POST' && strpos($request, '/register') !== false) {
+    $email = $data['email'] ?? '';
+    $senha = $data['senha'] ?? '';
+    $result = registerUser($email, $senha);
+    echo json_encode($result);
+} else {
+    http_response_code(404);
+    echo json_encode(["error" => "Rota não encontrada"]);
 }

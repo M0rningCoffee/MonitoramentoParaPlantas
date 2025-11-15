@@ -1,29 +1,30 @@
+-- Mantém suas tabelas existentes
 DROP DATABASE IF EXISTS MONITORAMENTO;
 CREATE DATABASE MONITORAMENTO;
 USE MONITORAMENTO;
 
-
-CREATE TABLE solo
-(
-	id_solo INT NOT NULL PRIMARY KEY auto_increment,
-	tipo varchar(45) NOT null
+CREATE TABLE solo (
+    id_solo INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    tipo VARCHAR(45) NOT NULL
 );
 
-CREATE TABLE planta(
-	id_planta INT NOT NULL PRIMARY KEY auto_increment,
-	nome_planta varchar(45) NOT null,
-	umidade int,
-	id_solo int,
-	FOREIGN KEY (id_solo) REFERENCES solo(id_solo)
+CREATE TABLE planta (
+    id_planta INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nome_planta VARCHAR(45) NOT NULL,
+    umidade INT,
+    id_solo INT,
+    FOREIGN KEY (id_solo) REFERENCES solo(id_solo)
 );
 
-CREATE TABLE log
-(
-	id_log INT NOT NULL PRIMARY KEY auto_increment,
-	id_planta int,
-	estado int NOT null,
-	_data timestamp default current_timestamp,
-	FOREIGN KEY (id_planta) REFERENCES planta(id_planta)
+CREATE TABLE log (
+    id_log INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_planta INT,
+    estado INT NOT NULL,
+    _data TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_planta) REFERENCES planta(id_planta)
 );
 
-
+-- NOVA TABELA PARA USUÁRIOS (LOGIN/CADASTRO)
+CREATE TABLE users (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    email V

@@ -2,16 +2,16 @@
 import { StyleSheet } from "react-native";
 
 export const colors = {
-  primary: "#4b9460",
-  primaryDark: "#2e6e4c",
-  backgroundLight: "#e8f9f0",
-  backgroundMedium: "#bfe7c7",
-  backgroundDark: "#8bd7a5",
+  primary: "#000000ff",
+  primaryDark: "#0d7209ff",
+  backgroundLight: "#f5f8e2ff",
+  backgroundMedium: "#f5f8e2ff",
+  backgroundDark: "#f5f8e2ff",
   textPrimary: "#333",
-  textSecondary: "#4b9460",
+  textSecondary: "#000000ff",
   textPlaceholder: "#999",
   white: "#fff",
-  border: "#c5e6d0",
+  border: "#000000ff",
 };
 
 export const spacing = {
