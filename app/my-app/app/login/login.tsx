@@ -7,28 +7,51 @@ import {
   StyleSheet,
   Image,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-
-// 🎨 Importa estilos globais
 import { colors, globalStyles, typography, spacing } from "../../styles";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !senha) {
       Alert.alert("Atenção", "Preencha e-mail e senha para continuar.");
       return;
     }
 
-    Alert.alert("Bem-vindo!", `Login realizado com sucesso: ${email}`);
-    // Se não houver home, só mostra o alerta
-    // Se quiser navegar para home, use: router.replace("dashboard/home");
+    setLoading(true);
+
+    try {
+      const response = await fetch("http://10.0.2.2/api/index.php/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, senha }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        Alert.alert("Bem-vindo!", `Login realizado com sucesso: ${email}`);
+        setEmail("");
+        setSenha("");
+        router.replace("dashboard/home"); // redireciona para o dashboard
+      } else {
+        Alert.alert("Erro", data.error || "Usuário ou senha incorretos");
+      }
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possível conectar ao servidor");
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -40,7 +63,7 @@ export default function LoginScreen() {
       ]}
       style={globalStyles.container}
     >
-      {/* 🔹 Logo e título */}
+      {/* Logo e título */}
       <View style={localStyles.logoContainer}>
         <Image
           source={require("../../assets/images/maconha.png")}
@@ -52,9 +75,8 @@ export default function LoginScreen() {
         </Text>
       </View>
 
-      {/* 🔹 Formulário */}
+      {/* Formulário */}
       <View style={globalStyles.formContainer}>
-        {/* Campo de E-mail */}
         <View style={globalStyles.inputContainer}>
           <Ionicons name="mail-outline" size={20} color={colors.primary} />
           <TextInput
@@ -68,7 +90,6 @@ export default function LoginScreen() {
           />
         </View>
 
-        {/* Campo de Senha */}
         <View style={globalStyles.inputContainer}>
           <Ionicons name="lock-closed-outline" size={20} color={colors.primary} />
           <TextInput
@@ -81,11 +102,17 @@ export default function LoginScreen() {
           />
         </View>
 
-        {/* Botão de Entrar */}
-        <TouchableOpacity style={localStyles.loginButton} onPress={handleLogin}>
-          <Text style={localStyles.loginButtonText}>Entrar</Text>
+        <TouchableOpacity
+          style={localStyles.loginButton}
+          onPress={handleLogin}
+          disabled={loading}
+        >
+          {loading ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <Text style={localStyles.loginButtonText}>Entrar</Text>
+          )}
         </TouchableOpacity>
-        
 
         {/* Esqueceu a senha */}
         <TouchableOpacity
@@ -95,17 +122,16 @@ export default function LoginScreen() {
           <Text style={typography.linkCenter}>Esqueceu sua senha?</Text>
         </TouchableOpacity>
 
-        {/* Acesse o dashboard */}
-                <TouchableOpacity
+        {/* Botão para dashboard (teste) */}
+        <TouchableOpacity
           onPress={() => router.push("dashboard/home")}
           style={{ marginTop: spacing.sm }}
         >
           <Text style={localStyles.dashboardButton}>ACESSE AQUI DASHBOARD</Text>
         </TouchableOpacity>
-
       </View>
 
-      {/* 🔹 Rodapé fixo */}
+      {/* Rodapé */}
       <View style={localStyles.footerContainer}>
         <Text style={typography.body}>Não tem conta?</Text>
         <TouchableOpacity onPress={() => router.push("login/cadastro")}>
@@ -116,7 +142,7 @@ export default function LoginScreen() {
   );
 }
 
-/* 🎨 Estilos locais aprimorados */
+/* Estilos locais */
 const localStyles = StyleSheet.create({
   logoContainer: {
     alignItems: "center",
@@ -150,22 +176,14 @@ const localStyles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: spacing.lg,
   },
-
-  // Estilos para o botão de acessar o dashboard diretamente
   dashboardButton: {
     textAlign: "center",
-    marginTop: 20,               // distância do topo
-    backgroundColor: "#000000ff",  // cor de fundo
-    paddingVertical: 12,         // altura do botão
-    paddingHorizontal: 25,       // largura interna
-    borderRadius: 10,            // cantos arredondados
-    alignItems: "center",        // centraliza o texto
-    shadowColor: "#000",         // sombra iOS
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,                // sombra Android
-    color: "#fff",               // cor do texto
+    marginTop: 20,
+    backgroundColor: "#000000ff",
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+    color: "#fff",
     fontWeight: "bold",
     fontSize: 16,
   },

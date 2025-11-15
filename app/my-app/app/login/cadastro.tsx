@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
@@ -10,15 +10,42 @@ export default function Cadastro() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (!nome || !email || !senha) {
       Alert.alert("Atenção", "Preencha todos os campos para continuar.");
       return;
     }
-Alert.alert("Sucesso", "Conta criada com sucesso!");
-    router.replace("../");
+
+    setLoading(true);
+
+    try {
+      const response = await fetch("http://10.0.2.2/api/index.php/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, senha }), // nome não está sendo usado na tabela
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        Alert.alert("Sucesso", "Conta criada com sucesso!");
+        setNome("");
+        setEmail("");
+        setSenha("");
+        router.replace("./login");
+      } else {
+        Alert.alert("Erro", data.error || "Não foi possível criar a conta");
+      }
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possível conectar ao servidor");
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -63,8 +90,16 @@ Alert.alert("Sucesso", "Conta criada com sucesso!");
         />
       </View>
 
-      <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
-        <Text style={styles.registerButtonText}>Cadastrar</Text>
+      <TouchableOpacity
+        style={styles.registerButton}
+        onPress={handleRegister}
+        disabled={loading}
+      >
+        {loading ? (
+          <ActivityIndicator color="#fff" />
+        ) : (
+          <Text style={styles.registerButtonText}>Cadastrar</Text>
+        )}
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => router.replace("./login")}>
