@@ -66,7 +66,7 @@ export default function LoginScreen() {
       {/* Logo e título */}
       <View style={localStyles.logoContainer}>
         <Image
-          source={require("../../assets/images/maconha.png")}
+          source={require("../../assets/images/Logo.png")}
           style={localStyles.logo}
         />
         <Text style={typography.title}>Planabis</Text>
