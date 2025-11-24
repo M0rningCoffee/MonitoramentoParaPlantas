@@ -25,3 +25,18 @@ if ($method == 'POST' && strpos($request, '/login') !== false) {
     http_response_code(404);
     echo json_encode(["error" => "Rota não encontrada"]);
 }
+
+// ... código existente que define $endpoint, $method, $data ...
+
+if ($method === 'GET' && $endpoint === "plants") {
+    $result = getPlants();
+    echo json_encode($result);
+    exit;
+} elseif ($method === 'GET' && $endpoint === "plant") {
+    // passar id via query string: /index.php/plant?id=1
+    $id = $_GET['id'] ?? null;
+    $result = getPlantById($id);
+    echo json_encode($result);
+    exit;
+}
+// ... existing POST login/register handlers ...

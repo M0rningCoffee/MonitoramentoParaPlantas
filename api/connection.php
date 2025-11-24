@@ -1,11 +1,13 @@
 <?php
 class Connection {
-    private $host = 'localhost';
-    private $dbname = 'MONITORAMENTO'; // seu banco
-    private $username = 'admin';       // seu usuário
-    private $password = 'admin123';    // sua senha
-    private $port = '3306';
-    public $connection;
+$config = require __DIR__ . "/config.php";
+$host = $config['host'];
+$dbname = $config['dbname'];
+$username = $config['username'];
+$password = $config['password'];
+$port = $config['port'];
+// então construa o DSN como antes...
+
 
     function connect() {
         try {
