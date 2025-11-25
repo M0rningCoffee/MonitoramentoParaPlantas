@@ -1,18 +1,19 @@
+import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
-  View,
+  ActivityIndicator,
+  Alert,
+  Image,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  Image,
-  Alert,
-  ActivityIndicator,
+  View,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
-import { colors, globalStyles, typography, spacing } from "../../styles";
+import { colors, globalStyles, spacing, typography } from "../../styles";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -40,14 +41,16 @@ export default function LoginScreen() {
       const data = await response.json();
 
       if (response.ok) {
+        await AsyncStorage.setItem("token", data.token);
+        await AsyncStorage.setItem("user", JSON.stringify(data.user));
         Alert.alert("Bem-vindo!", `Login realizado com sucesso: ${email}`);
         setEmail("");
         setSenha("");
         router.replace("/dashboard/home"); // redireciona para o dashboard
       } else {
-        const errorData = await response.json();
-        Alert.alert("Erro", errorData.error || "Usuário ou senha incorretos");
+          Alert.alert("Erro", data.error || "Usuário ou senha incorretos");
       }
+      
     } catch (error) {
       Alert.alert("Erro", "Não foi possível conectar ao servidor");
       console.log(error);

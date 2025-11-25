@@ -1,10 +1,10 @@
-// app/dashboard/home.jsx
-import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, ScrollView, Image, ActivityIndicator } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import { colors, globalStyles, typography, spacing, dashboardStyles } from "../../styles";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { colors, dashboardStyles, globalStyles, spacing, typography } from "../../styles";
 
 export default function DashboardScreen() {
   const router = useRouter();
@@ -16,11 +16,28 @@ export default function DashboardScreen() {
   useEffect(() => {
     const fetchPlants = async () => {
       try {
+        const token = await AsyncStorage.getItem("token");
+
+        if (!token) {
+          router.replace("/login/login");
+          return;
+        }
+
         const res = await fetch(`${API_URL}/plantas`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      });
-        if (res.ok){
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          }
+        });
+
+        if (res.status === 401) {
+          await AsyncStorage.removeItem("token");
+          router.replace("/login/login");
+          return;
+        }
+
+        if (res.ok) {
           const json = await res.json();
           setPlants(json);
         }
@@ -30,6 +47,7 @@ export default function DashboardScreen() {
         setLoading(false);
       }
     };
+
     fetchPlants();
   }, []);
 
@@ -51,18 +69,35 @@ export default function DashboardScreen() {
             <TouchableOpacity
               key={p.id}
               style={dashboardStyles.card}
-              onPress={() => router.push(`/dashboard/planta/${p.id}`)}            
+              onPress={() => router.push(`/dashboard/planta/${p.id}`)}
             >
               <Image source={require("../../assets/images/plant_card.png")} style={dashboardStyles.cardImage} />
               <View style={dashboardStyles.cardTextArea}>
-                <Text style={dashboardStyles.cardTitle}>{p.nome_planta || p.nome_planta || "Planta"}</Text>
-                <Text style={dashboardStyles.cardSubtitle}>Umidade: {p.umidade ?? "—"}</Text>
+                <Text style={dashboardStyles.cardTitle}>{p.nome_planta || "Planta"}</Text>
+                <Text style={dashboardStyles.cardSubtitle}>Umidade: {p.umidade ?? "Não Atualizado Ainda"}%</Text>
               </View>
               <Ionicons name="chevron-forward" size={24} color={colors.primary} />
             </TouchableOpacity>
           ))}
+
+
+          <TouchableOpacity style={{
+            position: "absolute",
+            bottom: 30,
+            right: 30,
+            zIndex: 99,
+          }} 
+          onPress={() => router.push("/dashboard/cadastrar")}>
+          <Ionicons name="add-circle" size={60} color={colors.primary}/>
+          </TouchableOpacity>
+
+
+
+
         </ScrollView>
       )}
     </LinearGradient>
   );
 }
+
+
