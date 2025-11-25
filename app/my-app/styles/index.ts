@@ -1,12 +1,11 @@
-// styles/index.ts
 import { StyleSheet } from "react-native";
 
 export const colors = {
-  primary: "#2E7D32",
-  backgroundLight: "#E8F5E9",
-  backgroundMedium: "#C8E6C9",
-  backgroundDark: "#A5D6A7",
-  white: "#FFFFFF",
+  primary: "#2fe900ff",
+  backgroundLight: "#499167",
+  backgroundMedium: "#499167",
+  backgroundDark: "#499167",
+  white: "#ffffffff",
   textPrimary: "#1B1B1B",
   textSecondary: "#4A4A4A",
   textPlaceholder: "#9E9E9E",

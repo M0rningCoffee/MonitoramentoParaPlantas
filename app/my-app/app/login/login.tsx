@@ -71,7 +71,7 @@ export default function LoginScreen() {
           source={require("../../assets/images/Logo.png")}
           style={localStyles.logo}
         />
-        <Text style={typography.title}>Planabis</Text>
+        <Text style={typography.title}>Gardener</Text>
         <Text style={[typography.subtitle, { marginTop: spacing.xs }]}>
           Suas plantas na palma da mão 🌿
         </Text>

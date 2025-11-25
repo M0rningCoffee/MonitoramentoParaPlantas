@@ -2,11 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, ActivityIndicator, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { useRouter, useSearchParams } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { colors, globalStyles, typography, spacing, monitorStyles } from "../../styles";
 
 export default function PlantDetail() {
-  const { id } = useSearchParams();
+  const { id } = useLocalSearchParams();
   const router = useRouter();
   const [plant, setPlant] = useState(null);
   const [loading, setLoading] = useState(true);

@@ -49,9 +49,9 @@ export default function DashboardScreen() {
 
           {plants.map((p) => (
             <TouchableOpacity
-              key={p.id_planta || p.id}
+              key={p.id}
               style={dashboardStyles.card}
-              onPress={() => router.push(`/monitoramento/plantDetail?id=${p.id_planta || p.id}`)}
+              onPress={() => router.push(`/dashboard/planta/${p.id}`)}            
             >
               <Image source={require("../../assets/images/plant_card.png")} style={dashboardStyles.cardImage} />
               <View style={dashboardStyles.cardTextArea}>
