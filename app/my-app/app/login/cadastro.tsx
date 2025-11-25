@@ -13,6 +13,7 @@ export default function Cadastro() {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
+  const API_URL = "http://10.0.0.105:8000/v1";
 
   const handleRegister = async () => {
     if (!nome || !email || !senha) {
@@ -23,26 +24,28 @@ export default function Cadastro() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://10.0.2.2/api/index.php/register", {
+      const response = await fetch(`${API_URL}/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, senha }), // nome não está sendo usado na tabela
+        body: JSON.stringify({ nome, email, senha }), 
       });
 
-      const data = await response.json();
 
-      if (data.success) {
+      if (response.ok) {
+          const data = await response.json();
         Alert.alert("Sucesso", "Conta criada com sucesso!");
         setNome("");
         setEmail("");
         setSenha("");
         router.replace("./login");
       } else {
-        Alert.alert("Erro", data.error || "Não foi possível criar a conta");
+        const errorData = await response.json();
+        Alert.alert("Erro", errorData.error || "Não foi possível criar a conta");
       }
     } catch (error) {
-      Alert.alert("Erro", "Não foi possível conectar ao servidor");
-      console.log(error);
+      Alert.alert("Erro", `Não foi possível conectar ao servidor ${error}`);
+      console.log(error)
+      error;
     } finally {
       setLoading(false);
     }

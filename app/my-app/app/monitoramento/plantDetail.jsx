@@ -10,14 +10,19 @@ export default function PlantDetail() {
   const router = useRouter();
   const [plant, setPlant] = useState(null);
   const [loading, setLoading] = useState(true);
-  const API_BASE = "http://10.0.2.2/api/index.php";
+  const API_URL = "http://10.0.0.105:8000/v1";
 
   useEffect(() => {
     const fetchPlant = async () => {
       try {
-        const res = await fetch(`${API_BASE}/plant?id=${id}`);
-        const json = await res.json();
-        if (json.success && json.plant) setPlant(json.plant);
+        const res = await fetch(`${API_URL}/plantas?id=${id}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+        });
+        if (res.ok) {
+          const json = await res.json();
+          setPlant(json.plant);
+        }
       } catch (err) {
         console.log("Erro ao obter planta:", err);
       } finally {
@@ -40,7 +45,7 @@ export default function PlantDetail() {
 
   return (
     <LinearGradient colors={[colors.backgroundLight, colors.backgroundMedium]} style={globalStyles.container}>
-      <Text style={[typography.title, { marginTop: spacing.xl }]}>{plant.nome_planta || plant.name}</Text>
+      <Text style={[typography.title, { marginTop: spacing.xl }]}>{plant.nome_planta || plant.nome_planta}</Text>
       <Text style={[typography.subtitle, { marginBottom: spacing.lg }]}>Umidade atual: {plant.umidade ?? "—"}</Text>
 
       {/* Aqui você pode mostrar gráficos, histórico e botões de calibragem */}

@@ -18,6 +18,7 @@ export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [loading, setLoading] = useState(false);
+  const API_URL = "http://10.0.0.105:8000/v1";
 
   const router = useRouter();
 
@@ -30,7 +31,7 @@ export default function LoginScreen() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://10.0.2.2/api/index.php/login", {
+      const response = await fetch(`${API_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, senha }),
@@ -38,13 +39,14 @@ export default function LoginScreen() {
 
       const data = await response.json();
 
-      if (data.success) {
+      if (response.ok) {
         Alert.alert("Bem-vindo!", `Login realizado com sucesso: ${email}`);
         setEmail("");
         setSenha("");
-        router.replace("dashboard/home"); // redireciona para o dashboard
+        router.replace("/dashboard/home"); // redireciona para o dashboard
       } else {
-        Alert.alert("Erro", data.error || "Usuário ou senha incorretos");
+        const errorData = await response.json();
+        Alert.alert("Erro", errorData.error || "Usuário ou senha incorretos");
       }
     } catch (error) {
       Alert.alert("Erro", "Não foi possível conectar ao servidor");
@@ -116,7 +118,7 @@ export default function LoginScreen() {
 
         {/* Esqueceu a senha */}
         <TouchableOpacity
-          onPress={() => router.push("login/esqueciSenha")}
+          onPress={() => router.push("./login/esqueciSenha")}
           style={{ marginTop: spacing.sm }}
         >
           <Text style={typography.linkCenter}>Esqueceu sua senha?</Text>
@@ -126,7 +128,7 @@ export default function LoginScreen() {
       {/* Rodapé */}
       <View style={localStyles.footerContainer}>
         <Text style={typography.body}>Não tem conta?</Text>
-        <TouchableOpacity onPress={() => router.push("login/cadastro")}>
+        <TouchableOpacity onPress={() => router.push("./login/cadastro")}>
           <Text style={typography.link}> Cadastre-se</Text>
         </TouchableOpacity>
       </View>

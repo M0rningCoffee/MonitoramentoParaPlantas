@@ -11,15 +11,19 @@ export default function DashboardScreen() {
   const [plants, setPlants] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Ajuste: use o host apropriado: 10.0.2.2 no emulator Android, localhost no iOS
-  const API_BASE = "http://10.0.2.2/api/index.php";
+  const API_URL = "http://10.0.0.105:8000/v1";
 
   useEffect(() => {
     const fetchPlants = async () => {
       try {
-        const res = await fetch(`${API_BASE}/plants`);
-        const json = await res.json();
-        if (json.success && json.plants) setPlants(json.plants);
+        const res = await fetch(`${API_URL}/plantas`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+      });
+        if (res.ok){
+          const json = await res.json();
+          setPlants(json);
+        }
       } catch (err) {
         console.log("Erro ao buscar plantas:", err);
       } finally {
@@ -51,7 +55,7 @@ export default function DashboardScreen() {
             >
               <Image source={require("../../assets/images/plant_card.png")} style={dashboardStyles.cardImage} />
               <View style={dashboardStyles.cardTextArea}>
-                <Text style={dashboardStyles.cardTitle}>{p.nome_planta || p.name || "Planta"}</Text>
+                <Text style={dashboardStyles.cardTitle}>{p.nome_planta || p.nome_planta || "Planta"}</Text>
                 <Text style={dashboardStyles.cardSubtitle}>Umidade: {p.umidade ?? "—"}</Text>
               </View>
               <Ionicons name="chevron-forward" size={24} color={colors.primary} />
