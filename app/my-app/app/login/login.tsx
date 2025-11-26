@@ -19,7 +19,7 @@ export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [loading, setLoading] = useState(false);
-  const API_URL = "http://10.0.0.105:8000/v1";
+  const API_URL = "http://10.60.213.28:8000/v1";
 
   const router = useRouter();
 
@@ -120,12 +120,12 @@ export default function LoginScreen() {
         </TouchableOpacity>
 
         {/* Esqueceu a senha */}
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => router.push("./login/esqueciSenha")}
           style={{ marginTop: spacing.sm }}
         >
           <Text style={typography.linkCenter}>Esqueceu sua senha?</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       {/* Rodapé */}

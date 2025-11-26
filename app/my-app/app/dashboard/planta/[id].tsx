@@ -13,7 +13,7 @@ type PlantaAPI = {
   logs: any[];
 };
 
-const API_URL = "http://10.0.0.105:8000/v1";
+  const API_URL = "http://10.60.213.28:8000/v1";
 
 export default function PlantaDetalhe() {
   const { id } = useLocalSearchParams();

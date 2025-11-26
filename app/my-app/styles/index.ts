@@ -1,20 +1,22 @@
 import { StyleSheet } from "react-native";
 
 export const colors = {
-  primary: "#2fe900ff",
+  primary: "#53ec2cff",
   backgroundLight: "#499167",
   backgroundMedium: "#499167",
   backgroundDark: "#499167",
   white: "#ffffffff",
+  clean: "#68D89B", 
   textPrimary: "#1B1B1B",
   textSecondary: "#4A4A4A",
   textPlaceholder: "#9E9E9E",
+  
 };
 
 export const spacing = { xs:6, sm:10, md:15, lg:25, xl:40, xxl:60 };
 
 export const typography = StyleSheet.create({
-  title: { fontSize:28, fontWeight:"bold", color:colors.primary, textAlign:"center" },
+  title: { fontSize:28, fontWeight:"bold", color:colors.clean, textAlign:"center" },
   subtitle: { fontSize:15, color:colors.textSecondary, textAlign:"center" },
   body: { fontSize:14, color:colors.textSecondary },
   link: { fontSize:14, color:colors.primary, fontWeight:"600" },

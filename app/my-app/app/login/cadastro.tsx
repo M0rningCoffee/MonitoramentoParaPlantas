@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import { colors, globalStyles, typography, spacing } from "../../styles";
+import React, { useState } from "react";
+import { ActivityIndicator, Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { colors, globalStyles, typography } from "../../styles";
 import { styles } from "../../styles/cadastro.styles";
 
 export default function Cadastro() {
@@ -13,7 +13,7 @@ export default function Cadastro() {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
-  const API_URL = "http://10.0.0.105:8000/v1";
+  const API_URL = "http://10.60.213.28:8000/v1";
 
   const handleRegister = async () => {
     if (!nome || !email || !senha) {

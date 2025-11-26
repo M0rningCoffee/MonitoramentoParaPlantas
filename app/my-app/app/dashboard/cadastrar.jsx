@@ -3,18 +3,18 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
-    ActivityIndicator,
-    Alert,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  Alert,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { colors, globalStyles, spacing, typography } from "../../styles";
 
-const API_URL = "http://10.0.0.105:8000/v1";
+  const API_URL = "http://10.60.213.28:8000/v1";
 
 export default function CadastrarPlanta() {
   const router = useRouter();

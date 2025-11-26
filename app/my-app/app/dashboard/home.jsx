@@ -11,7 +11,7 @@ export default function DashboardScreen() {
   const [plants, setPlants] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const API_URL = "http://10.0.0.105:8000/v1";
+  const API_URL = "http://10.60.213.28:8000/v1";
 
   useEffect(() => {
     const fetchPlants = async () => {
