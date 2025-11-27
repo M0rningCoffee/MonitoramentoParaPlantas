@@ -14,10 +14,11 @@ export default function Cadastro() {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
-  // IP local Diego
-  const API_URL = "http://10.60.213.28:8000/v1";
-  // IP local Pedro
-  // const API_URL = "http://10.0.0.105:8000/v1";
+
+ // const API_URL = "http://10.60.213.28:8000/v1";
+// const API_URL = "http://10.0.0.105:8000/v1";
+const API_URL = "https://tyron-unpiqued-tenurially.ngrok-free.dev/v1";
+
 
   const handleRegister = async () => {
     if (!nome || !email || !senha) {

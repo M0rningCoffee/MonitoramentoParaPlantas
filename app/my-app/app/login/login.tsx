@@ -19,10 +19,10 @@ export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [loading, setLoading] = useState(false);
-  // IP local Diego
-  const API_URL = "http://10.60.213.28:8000/v1";
-  // IP local Pedro
-  // const API_URL = "http://10.0.0.105:8000/v1";
+ // const API_URL = "http://10.60.213.28:8000/v1";
+// const API_URL = "http://10.0.0.105:8000/v1";
+const API_URL = "https://tyron-unpiqued-tenurially.ngrok-free.dev/v1";
+
   const router = useRouter();
 
   const handleLogin = async () => {
@@ -121,19 +121,12 @@ export default function LoginScreen() {
           )}
         </TouchableOpacity>
 
-        {/* Esqueceu a senha */}
-        {/* <TouchableOpacity
-          onPress={() => router.push("./login/esqueciSenha")}
-          style={{ marginTop: spacing.sm }}
-        >
-          <Text style={typography.linkCenter}>Esqueceu sua senha?</Text>
-        </TouchableOpacity> */}
       </View>
 
       {/* Rodapé */}
       <View style={localStyles.footerContainer}>
         <Text style={typography.body}>Não tem conta?</Text>
-        <TouchableOpacity onPress={() => router.push("./login/cadastro")}>
+        <TouchableOpacity onPress={() => router.push("/login/cadastro")}>
           <Text style={typography.link}> Cadastre-se</Text>
         </TouchableOpacity>
       </View>

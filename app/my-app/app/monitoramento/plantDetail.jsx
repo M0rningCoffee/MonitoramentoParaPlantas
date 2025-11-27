@@ -10,10 +10,10 @@ export default function PlantDetail() {
   const router = useRouter();
   const [plant, setPlant] = useState(null);
   const [loading, setLoading] = useState(true);
-  // IP local Diego
-  const API_URL = "http://10.60.213.28:8000/v1";
-  // IP local Pedro
-  // const API_URL = "http://10.0.0.105:8000/v1";
+ // const API_URL = "http://10.60.213.28:8000/v1";
+// const API_URL = "http://10.0.0.105:8000/v1";
+const API_URL = "https://tyron-unpiqued-tenurially.ngrok-free.dev/v1";
+
   useEffect(() => {
     const fetchPlant = async () => {
       try {

@@ -14,10 +14,9 @@ import {
 } from "react-native";
 import { colors, globalStyles, spacing, typography } from "../../styles";
 
-  // IP local Diego
-  const API_URL = "http://10.60.213.28:8000/v1";
-  // IP local Pedro
-  // const API_URL = "http://10.0.0.105:8000/v1";
+ // const API_URL = "http://10.60.213.28:8000/v1";
+// const API_URL = "http://10.0.0.105:8000/v1";
+const API_URL = "https://tyron-unpiqued-tenurially.ngrok-free.dev/v1";
 
 export default function CadastrarPlanta() {
   const router = useRouter();
@@ -71,7 +70,7 @@ export default function CadastrarPlanta() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify({
           nome_planta: nomePlanta,
@@ -92,7 +91,7 @@ export default function CadastrarPlanta() {
       }
     } catch (err) {
       console.log(err);
-      Alert.alert("Erro", "Não foi possível conectar ao servidor!");
+      Alert.alert("Erro", "Não foi possível conectar ao servidor!, Não Utilize o mesmo Sensor para duas plantas");
     } finally {
       setSaving(false);
     }
