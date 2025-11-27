@@ -13,9 +13,8 @@ import {
     TouchableWithoutFeedback,
     View,
 } from "react-native";
-import { colors, spacing } from "../../styles"; // Ajuste o caminho conforme sua estrutura
+import { colors, spacing } from "../../styles";
 
-// Configuração da API (Centralizar isso depois seria ideal)
 const API_URL = "http://10.60.213.28:8000/v1";
 
 export default function AtualizarPlanta() {
@@ -33,9 +32,12 @@ export default function AtualizarPlanta() {
         const token = await AsyncStorage.getItem("token");
         if (!token) return router.replace("/login/login");
 
-        const res = await fetch(`${API_URL}/plantas/${id}`, {
+        const res = await fetch(`${API_URL}/plantas`, {
           method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          }
         });
 
         if (res.ok) {
@@ -72,7 +74,7 @@ export default function AtualizarPlanta() {
       
       const payload = {
         nome_planta: nome,
-        umidade_minima: isNaN(umidadeInt) ? null : umidadeInt, // Envia null se vazio
+        umidade_minima: isNaN(umidadeInt) ? null : umidadeInt, 
       };
 
       const res = await fetch(`${API_URL}/plantas/${id}`, {
@@ -86,7 +88,7 @@ export default function AtualizarPlanta() {
 
       if (res.ok) {
         Alert.alert("Sucesso", "Planta atualizada com sucesso!");
-        router.push("/dashboard"); // Volta para dashboard ou router.back()
+        router.push("/dashboard"); 
       } else {
         const erro = await res.json();
         Alert.alert("Erro", erro.detail || "Falha ao atualizar.");
