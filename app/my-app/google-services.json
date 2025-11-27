@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1053426893508",
+    "project_id": "gardener-tcc",
+    "storage_bucket": "gardener-tcc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053426893508:android:b1c34d0ddf877b91cbbf91",
+        "android_client_info": {
+          "package_name": "com.morningcoffee.Gardener"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArydw1r5nsSpuojByw8LN7pT51lUZmnoI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

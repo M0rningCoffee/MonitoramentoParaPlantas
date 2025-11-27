@@ -30,13 +30,20 @@ export default function AtualizarPlanta() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
-  useEffect(() => {
+useEffect(() => {
+    if (!id) {
+        setLoading(false);
+        Alert.alert("Erro", "ID da planta não informado.");
+        router.back();
+        return;
+    }
+
     const fetchDadosAtuais = async () => {
       try {
         const token = await AsyncStorage.getItem("token");
         if (!token) return router.replace("/login/login");
 
-        const res = await fetch(`${API_URL}/plantas`, {
+        const res = await fetch(`${API_URL}/plantas/${id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -46,20 +53,26 @@ export default function AtualizarPlanta() {
 
         if (res.ok) {
           const json = await res.json();
-          setNome(json.nome_planta);
-          setUmidadeMinima(json.umidade_minima ?String(json.umidade_minima) : "");
+          
+           console.log("Dados da planta:", json); 
+
+          setNome(json.nome_planta || json.nome || ""); 
+          setUmidadeMinima(json.umidade_minima ? String(json.umidade_minima) : "");
+          
         } else {
-          Alert.alert("Erro", "Não foi possível carregar os dados da planta.");
+          Alert.alert("Erro", "Não foi possível carregar os dados.");
+          console.log("Status erro:", res.status);
           router.back();
         }
       } catch (error) {
         console.log("Erro fetch update:", error);
+        Alert.alert("Erro", "Falha de conexão.");
       } finally {
         setLoading(false);
       }
     };
 
-    if (id) fetchDadosAtuais();
+    fetchDadosAtuais();
   }, [id]);
 
   const handleUpdate = async () => {
@@ -92,7 +105,7 @@ export default function AtualizarPlanta() {
 
       if (res.ok) {
         Alert.alert("Sucesso", "Planta atualizada com sucesso!");
-        router.push("/dashboard"); 
+        router.push("/dashboard/home"); 
       } else {
         const erro = await res.json();
         Alert.alert("Erro", erro.detail || "Falha ao atualizar.");

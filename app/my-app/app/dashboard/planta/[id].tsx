@@ -127,7 +127,7 @@ export default function PlantaDetalhe() {
         </View>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={[styles.button, { backgroundColor: colors.white }]} onPress={() => router.push("/dashboard/atualizar")}>
+          <TouchableOpacity style={[styles.button, { backgroundColor: colors.white }]} onPress={() => router.push({pathname:"/dashboard/atualizar", params: {id:id}})}>
             <Text style={[styles.buttonText, { color: colors.primary }]}>Editar</Text>
           </TouchableOpacity>
         </View>
