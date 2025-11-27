@@ -14,7 +14,10 @@ import {
 } from "react-native";
 import { colors, globalStyles, spacing, typography } from "../../styles";
 
+  // IP local Diego
   const API_URL = "http://10.60.213.28:8000/v1";
+  // IP local Pedro
+  // const API_URL = "http://10.0.0.105:8000/v1";
 
 export default function CadastrarPlanta() {
   const router = useRouter();

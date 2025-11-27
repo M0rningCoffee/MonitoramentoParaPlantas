@@ -1,17 +1,19 @@
 // app/monitoramento/plantDetail.jsx
-import React, { useEffect, useState } from "react";
-import { View, Text, ActivityIndicator, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { useRouter, useLocalSearchParams } from "expo-router";
-import { colors, globalStyles, typography, spacing, monitorStyles } from "../../styles";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
+import { colors, globalStyles, spacing, typography } from "../../styles";
 
 export default function PlantDetail() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
   const [plant, setPlant] = useState(null);
   const [loading, setLoading] = useState(true);
-  const API_URL = "http://10.0.0.105:8000/v1";
-
+  // IP local Diego
+  const API_URL = "http://10.60.213.28:8000/v1";
+  // IP local Pedro
+  // const API_URL = "http://10.0.0.105:8000/v1";
   useEffect(() => {
     const fetchPlant = async () => {
       try {

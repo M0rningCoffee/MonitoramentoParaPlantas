@@ -19,8 +19,10 @@ export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [loading, setLoading] = useState(false);
+  // IP local Diego
   const API_URL = "http://10.60.213.28:8000/v1";
-
+  // IP local Pedro
+  // const API_URL = "http://10.0.0.105:8000/v1";
   const router = useRouter();
 
   const handleLogin = async () => {
@@ -52,7 +54,7 @@ export default function LoginScreen() {
       }
       
     } catch (error) {
-      Alert.alert("Erro", "Não foi possível conectar ao servidor");
+      Alert.alert("Erro", "Não foi possível logar. Verifique email ou senha");
       console.log(error);
     } finally {
       setLoading(false);

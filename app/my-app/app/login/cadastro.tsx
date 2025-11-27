@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
@@ -13,7 +14,10 @@ export default function Cadastro() {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
+  // IP local Diego
   const API_URL = "http://10.60.213.28:8000/v1";
+  // IP local Pedro
+  // const API_URL = "http://10.0.0.105:8000/v1";
 
   const handleRegister = async () => {
     if (!nome || !email || !senha) {
@@ -32,12 +36,15 @@ export default function Cadastro() {
 
 
       if (response.ok) {
-          const data = await response.json();
-        Alert.alert("Sucesso", "Conta criada com sucesso!");
-        setNome("");
-        setEmail("");
-        setSenha("");
-        router.replace("./login");
+        const data = await response.json();
+          await AsyncStorage.setItem("token", data.token);
+          await AsyncStorage.setItem("user", JSON.stringify(data.user));
+          
+          Alert.alert("Sucesso", "Conta criada com sucesso!");
+            setNome("");
+            setEmail("");
+            setSenha("");
+          router.replace("/dashboard/home"); 
       } else {
         const errorData = await response.json();
         Alert.alert("Erro", errorData.error || "Não foi possível criar a conta");

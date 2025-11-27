@@ -12,9 +12,10 @@ type PlantaAPI = {
   solo: { id: number; tipo: string };
   logs: any[];
 };
-
+  // IP local Diego
   const API_URL = "http://10.60.213.28:8000/v1";
-
+  // IP local Pedro:
+  // const API_URL = "http://10.0.0.105:8000/v1";
 export default function PlantaDetalhe() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
@@ -94,7 +95,7 @@ export default function PlantaDetalhe() {
       <View style={styles.card}>
         <View style={styles.imageWrapper}>
           <Image
-            source={require("../../../assets/images/plant_card.png")}
+            source={require("../../../assets/images/plant_card.jpg")}
             style={styles.image}
           />
         </View>
@@ -126,13 +127,7 @@ export default function PlantaDetalhe() {
         </View>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={[styles.button, { backgroundColor: colors.primary }]}>
-            <Text style={styles.buttonText}>Regar</Text>
-          </TouchableOpacity>
-{/* 
-            onPress=({router.push("/dashboard/atualizar")}) */}
-
-          <TouchableOpacity style={[styles.button, { backgroundColor: colors.white }]}>
+          <TouchableOpacity style={[styles.button, { backgroundColor: colors.white }]} onPress={() => router.push("/dashboard/atualizar")}>
             <Text style={[styles.buttonText, { color: colors.primary }]}>Editar</Text>
           </TouchableOpacity>
         </View>
